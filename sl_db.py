@@ -159,10 +159,16 @@ if 'DPBE' in method:
     with st.sidebar.expander("DPBE Parameters", expanded=True):
         level3_DPBE_select = st.selectbox(
             'Scheme',
-            options=['first', 'limited', 'WENO5'],
+            options=['First order', 'Flux limited upwind', 'WENO5'],
             index=2
         )
-        level3_DPBE = f'scheme_{level3_DPBE_select}'
+        if level3_DPBE_select == 'First order':
+            level3_DPBE = 'scheme_first'
+        elif level3_DPBE_select == 'Flux limited upwind':
+            level3_DPBE = 'scheme_limited'
+        elif level3_DPBE_select == 'WENO5':
+            level3_DPBE = 'scheme_WENO5'
+
         selected_number_of_classes = st.slider(
             'Number of classes',
             min_value=10, max_value=200, value=50, step=1
