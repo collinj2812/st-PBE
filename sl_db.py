@@ -111,7 +111,7 @@ else:
 method = st.multiselect(
     'Select Method',
     options=['OCFE', 'DPBE', 'MOM', 'MC'],
-    default=['MC']
+    default=['DPBE']
 )
 
 # OCFE parameters in their own expander
