@@ -80,7 +80,7 @@ with st.sidebar.expander("Case Parameters", expanded=True):
     if case == 'case1' or case == 'case3' or case == 'case4':
         level2_select = st.selectbox(
             'Growth rate G',
-            options=['0.1', '0.5', '1.0', '5.0']
+            options=['0.5', '1.0', '5.0']
         )
         level2 = f'G_{level2_select}'
     elif case == 'case2':
