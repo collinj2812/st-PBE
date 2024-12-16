@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import plotly.express as px
 import plotly.graph_objects as go
+import plotly.express as px
 
 # with open('data_dict_final.pkl', 'rb') as f:
 #     data = pickle.load(f)
@@ -80,7 +80,7 @@ with st.sidebar.expander("Case Parameters", expanded=True):
     if case == 'case1' or case == 'case3' or case == 'case4':
         level2_select = st.selectbox(
             'Growth rate G',
-            options=['0.1', '0.5', '1.0', '5.0']
+            options=['0.5', '1.0', '5.0']
         )
         level2 = f'G_{level2_select}'
     elif case == 'case2':
