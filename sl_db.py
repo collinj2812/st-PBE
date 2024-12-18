@@ -2,8 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import plotly.graph_objects as go
 import plotly.express as px
+import plotly.graph_objects as go
+import time
+from datetime import datetime
+import numpy as np
 
 # with open('data_dict_final.pkl', 'rb') as f:
 #     data = pickle.load(f)
@@ -53,18 +56,50 @@ class LazyLoader:
 loader = LazyLoader()
 
 
+# Initialize session state variables
+if 'counter_active' not in st.session_state:
+    st.session_state.counter_active = False
+if 'current_value' not in st.session_state:
+    st.session_state.current_value = 10
+
+
+def toggle_counter():
+    st.session_state.counter_active = not st.session_state.counter_active
+
+
+# Create a placeholder for the plots at the top
+plot_placeholder = st.empty()
+
+# Add toggle button
+st.button(
+    "Start/Stop",
+    on_click=toggle_counter,
+    type="primary" if not st.session_state.counter_active else "secondary"
+)
+
+# Add increment amount input
+increment = 1
+
+# Ensure current_value is an integer
+current_value = int(st.session_state.current_value)
+
 # Slider for time
-time = st.slider(
+time_slider = st.slider(
     'Select time',
-    min_value=0, max_value=50, value=10, step=1,
+    min_value=0,
+    max_value=50,
+    value=current_value,
+    step=1,
     label_visibility="visible",
     help=None,
     on_change=None,
     args=None,
     kwargs=None,
     disabled=False,
-    key=None,
+    key="time_slider"
 )
+
+
 
 # Sidebar for selecting case
 case_select = st.sidebar.selectbox(
@@ -97,14 +132,14 @@ if case == 'case4':
     df = pd.DataFrame({
         'x': x,
         'y': [None] * 100,  # Make array of same length as x
-        'label': ['Domain'] * 100  # Make array of same length as x
+        # 'label': ['Domain'] * 100  # Make array of same length as x
     })
 else:
     # Load exact solution data
     exact_data = loader.get_data(case, level2, 'exact')
     df = pd.DataFrame({
         'x': exact_data['xx'],
-        'y': exact_data[str(time)],
+        'y': exact_data[str(time_slider)],
         'label': 'Exact solution'
     })
 # Method selection
@@ -149,7 +184,7 @@ if 'OCFE' in method:
     ocfe_data = loader.get_data(case, level2, 'OCFE', level3_OCFE, level4_OCFE, level5_OCFE)
     df_OCFE = pd.DataFrame({
         'x': ocfe_data['xx'],
-        'y': ocfe_data[str(time)],
+        'y': ocfe_data[str(time_slider)],
         'label': 'OCFE'
     })
     df = pd.concat([df, df_OCFE])
@@ -168,7 +203,6 @@ if 'DPBE' in method:
             level3_DPBE = 'scheme_limited'
         elif level3_DPBE_select == 'WENO5':
             level3_DPBE = 'scheme_WENO5'
-
         selected_number_of_classes = st.slider(
             'Number of classes',
             min_value=10, max_value=200, value=50, step=1
@@ -178,7 +212,7 @@ if 'DPBE' in method:
     dpbe_data = loader.get_data(case, level2, 'DPBE', level3_DPBE, level4_DPBE)
     df_DPBE = pd.DataFrame({
         'x': dpbe_data['L_i'],
-        'y': dpbe_data[str(time)],
+        'y': dpbe_data[str(time_slider)],
         'label': 'DPBE'
     })
     df = pd.concat([df, df_DPBE])
@@ -194,7 +228,7 @@ if 'MC' in method:
     level3_MC = f'no_particles_{level3_MC_select}'
     # Load MC data
     mc_data = loader.get_data(case, level2, 'MC', level3_MC)
-    data_MC = mc_data[str(time)]
+    data_MC = mc_data[str(time_slider)]
     no_begin = mc_data['0'].shape[1]
     no_now = data_MC.shape[1]
 
@@ -202,82 +236,101 @@ if 'MC' in method:
 if case == 'case4' and len(method) == 1 and 'MC' in method or len(method) == 0 or case == 'case4' and len(method) == 1 and 'MOM' in method:
     df = pd.DataFrame({'x': [0, 60], 'y': [None, None], 'label': ''})
 
-# Create the line chart using Plotly Express
-fig = px.line(df, x='x', y='y', color='label')
 
-# add a title
-fig.update_layout(
-    xaxis_title='V',
-    yaxis_title='n(V)'
-)
 
-if 'MC' in method:
-    # Calculate histogram data
-    hist_values, bin_edges = np.histogram(data_MC, bins=100, density=True)
+# Update the current value in session state
+st.session_state.current_value = time_slider
 
-    # Add the histogram trace to the figure
-    fig.add_trace(
-        go.Line(
-            x=bin_edges[:-1],  # Use left edges of bins as x values
-            y=hist_values*no_now/no_begin,  # Normalize to the number of samples at t=0
-            name='Monte Carlo',
-            opacity=0.5,
-        )
+# Here you can create your plots using the current_value
+# For example (replace this with your actual plotting code):
+with plot_placeholder.container():
+    # Create the line chart using Plotly Express
+    fig = px.line(df, x='x', y='y', color='label')
+
+    # add a title
+    fig.update_layout(
+        xaxis_title='V',
+        yaxis_title='n(V)'
     )
 
-if 'MOM' in method:
-    # Calculate the maximum y value across all traces, excluding None values
-    max_y = 0  # Default value
-    for trace in fig.data:
-        if trace.y is not None and any(y is not None for y in trace.y):
-            trace_max = max(y for y in trace.y if y is not None)
-            max_y = max(max_y, trace_max)
+    if 'MC' in method:
+        # Calculate histogram data
+        hist_values, bin_edges = np.histogram(data_MC, bins=100, density=True)
 
-    # If max_y is still 0 (no valid y values), set a default height
-    if max_y == 0:
-        max_y = 1.0
-
-    line_height = 0.05 * max_y
-
-    # Load MOM data
-    mom_data = loader.get_data(case, level2, 'MOM')
-    x_position = mom_data[str(time)][0]
-    std = mom_data[str(time)][1]
-    fig.add_shape(
-        type="line",
-        x0=x_position,
-        x1=x_position,
-        y0=0,
-        y1=line_height,
-        name='MOM',
-        line=dict(
-            color='black',
-            width=2,
+        # Add the histogram trace to the figure
+        fig.add_trace(
+            go.Line(
+                x=bin_edges[:-1],  # Use left edges of bins as x values
+                y=hist_values * no_now / no_begin,  # Normalize to the number of samples at t=0
+                name='Monte Carlo',
+                opacity=0.5,
+            )
         )
+
+    if 'MOM' in method:
+        # Calculate the maximum y value across all traces, excluding None values
+        max_y = 0  # Default value
+        for trace in fig.data:
+            if trace.y is not None and any(y is not None for y in trace.y):
+                trace_max = max(y for y in trace.y if y is not None)
+                max_y = max(max_y, trace_max)
+
+        # If max_y is still 0 (no valid y values), set a default height
+        if max_y == 0:
+            max_y = 1.0
+
+        line_height = 0.05 * max_y
+
+        # Load MOM data
+        mom_data = loader.get_data(case, level2, 'MOM')
+        x_position = mom_data[str(time_slider)][0]
+        std = mom_data[str(time_slider)][1]
+        fig.add_shape(
+            type="line",
+            x0=x_position,
+            x1=x_position,
+            y0=0,
+            y1=line_height,
+            name='MOM',
+            line=dict(
+                color='black',
+                width=2,
+            )
+        )
+
+        # Add a trace for the vertical marker legend entry
+        fig.add_trace(
+            go.Scatter(
+                x=[x_position - std, x_position + std],  # Two points to create a visible line
+                y=[line_height / 2, line_height / 2],  # Same height for a horizontal line
+                mode='lines',
+                name='Method of moments',  # Legend label for the vertical shape
+                line=dict(color='black', width=2),
+                showlegend=True
+            )
+        )
+
+    # Update the layout to accommodate both plots
+    fig.update_layout(
+        yaxis2=dict(
+            title='Count',
+            overlaying='y',
+            side='right'
+        ),
+        barmode='overlay',
+        xaxis_title='V',  # Example with LaTeX
+        yaxis_title='n(V)'  # Example with LaTeX and units
     )
 
-    # Add a trace for the vertical marker legend entry
-    fig.add_trace(
-        go.Scatter(
-            x=[x_position - std, x_position + std],  # Two points to create a visible line
-            y=[line_height / 2, line_height / 2],  # Same height for a horizontal line
-            mode='lines',
-            name='Method of moments',  # Legend label for the vertical shape
-            line=dict(color='black', width=2),
-            showlegend=True
-        )
+    st.plotly_chart(fig)
+
+# If counter is active, increment the slider value
+if st.session_state.counter_active:
+    # Update current value
+    st.session_state.current_value = min(
+        50,  # max_value
+        int(st.session_state.current_value + increment)
     )
-
-# Update the layout to accommodate both plots
-fig.update_layout(
-    yaxis2=dict(
-        title='Count',
-        overlaying='y',
-        side='right'
-    ),
-    barmode='overlay',
-    xaxis_title='V',  # Example with LaTeX
-    yaxis_title='n(V)'  # Example with LaTeX and units
-)
-
-st.plotly_chart(fig)
+    # Force a rerun after a short delay
+    time.sleep(0.5)
+    st.rerun()
