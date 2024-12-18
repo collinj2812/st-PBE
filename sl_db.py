@@ -68,7 +68,7 @@ def toggle_counter():
 
 
 # Create a placeholder for the plots at the top
-plot_placeholder = st.empty()
+plot_container = st.container()
 
 # Add toggle button
 st.button(
@@ -243,7 +243,7 @@ st.session_state.current_value = time_slider
 
 # Here you can create your plots using the current_value
 # For example (replace this with your actual plotting code):
-with plot_placeholder.container():
+with plot_container.container():
     # Create the line chart using Plotly Express
     fig = px.line(df, x='x', y='y', color='label')
 
