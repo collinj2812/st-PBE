@@ -8,11 +8,7 @@ import time
 from datetime import datetime
 import numpy as np
 
-# with open('data_dict_final.pkl', 'rb') as f:
-#     data = pickle.load(f)
 
-
-# Modified LazyLoader to handle the new structure
 class LazyLoader:
     def __init__(self):
         self.cache = {}
@@ -36,7 +32,6 @@ class LazyLoader:
             with open(filename, 'rb') as f:
                 result = pickle.load(f)
 
-                # Navigate through remaining args if any
                 if method == 'OCFE' and len(args) > 2:
                     for arg in args[2:]:
                         result = result[arg]
@@ -52,9 +47,10 @@ class LazyLoader:
         except FileNotFoundError:
             print(f"File not found: {filename}")
             return None
+
+
 # Initialize the loader at the start of your app
 loader = LazyLoader()
-
 
 # Initialize session state variables
 if 'counter_active' not in st.session_state:
@@ -99,8 +95,6 @@ time_slider = st.slider(
     key="time_slider"
 )
 
-
-
 # Sidebar for selecting case
 case_select = st.sidebar.selectbox(
     'Case',
@@ -112,18 +106,70 @@ if case == 'case3':
 
 # Case-specific parameters in an expander
 with st.sidebar.expander("Case Parameters", expanded=True):
-    if case == 'case1' or case == 'case3' or case == 'case4':
+    # Growth rate G
+    if case == 'case1' or case == 'case4':
         level2_select = st.selectbox(
             'Growth rate G',
             options=['0.5', '1.0', '5.0']
         )
         level2 = f'G_{level2_select}'
-    elif case == 'case2':
-        level2_select = st.selectbox(
-            r'Agglomeration rate beta $\beta$',
+        G_value = level2_select
+    else:
+        st.selectbox(
+            'Growth rate G',
+            options=['0.0'],
+            disabled=True,
+            key='G_disabled'
+        )
+        G_value = '0.0'
+        level2 = None
+
+    # Agglomeration rate beta
+    if case == 'case2':
+        beta_select = st.selectbox(
+            r'Agglomeration rate β',
             options=['0.1', '0.5']
         )
-        level2 = f'beta_{level2_select}'
+        level2 = f'beta_{beta_select}'
+        beta_value = beta_select
+    else:
+        if case == 'case1':
+            st.selectbox(
+                r'Agglomeration rate β',
+                options=['0.0'],
+                disabled=True,
+                key='beta_disabled'
+            )
+        elif case == 'case4':
+            st.selectbox(
+                r'Agglomeration rate β',
+                options=['0.1'],
+                disabled=True,
+                key='beta_disabled'
+            )
+
+    if case == 'case1' or case == 'case2':
+        st.selectbox(
+            'Nucleation rate N',
+            options=['0.0'],
+            disabled=True,
+            key='N_disabled'
+        )
+    elif case == 'case4':
+        st.selectbox(
+            'Nucleation rate N',
+            options=['0.01'],
+            disabled=True,
+            key='N_disabled'
+        )
+
+
+# Method selection
+method = st.multiselect(
+    'Select Method',
+    options=['OCFE', 'DPBE', 'MOM', 'MC'],
+    default=['DPBE']
+)
 
 # Initialize dataframe based on case
 if case == 'case4':
@@ -131,8 +177,8 @@ if case == 'case4':
     x = np.linspace(0, 60, 100)
     df = pd.DataFrame({
         'x': x,
-        'y': [None] * 100,  # Make array of same length as x
-        # 'label': ['Domain'] * 100  # Make array of same length as x
+        'y': [None]  * len(x),
+        'label': [''] * len(x)
     })
 else:
     # Load exact solution data
@@ -142,14 +188,8 @@ else:
         'y': exact_data[str(time_slider)],
         'label': 'Exact solution'
     })
-# Method selection
-method = st.multiselect(
-    'Select Method',
-    options=['OCFE', 'DPBE', 'MOM', 'MC'],
-    default=['DPBE']
-)
 
-# OCFE parameters in their own expander
+# OCFE parameters
 if 'OCFE' in method:
     with st.sidebar.expander("OCFE Parameters", expanded=True):
         level3_OCFE_select = st.selectbox(
@@ -189,7 +229,7 @@ if 'OCFE' in method:
     })
     df = pd.concat([df, df_OCFE])
 
-# DPBE parameters in their own expander
+# DPBE parameters
 if 'DPBE' in method:
     with st.sidebar.expander("DPBE Parameters", expanded=True):
         level3_DPBE_select = st.selectbox(
@@ -217,7 +257,7 @@ if 'DPBE' in method:
     })
     df = pd.concat([df, df_DPBE])
 
-# MC parameters in their own expander
+# MC parameters
 if 'MC' in method:
     with st.sidebar.expander("MC Parameters", expanded=True):
         level3_MC_select = st.selectbox(
@@ -232,22 +272,19 @@ if 'MC' in method:
     no_begin = mc_data['0'].shape[1]
     no_now = data_MC.shape[1]
 
-# add dummy data for case 4 if only MC is selected
-if case == 'case4' and len(method) == 1 and 'MC' in method or len(method) == 0 or case == 'case4' and len(method) == 1 and 'MOM' in method:
+# Add dummy data for case 4 if only MC is selected or no method is selected
+if case == 'case4' and (len(method) == 0 or (len(method) == 1 and ('MC' in method or 'MOM' in method))):
     df = pd.DataFrame({'x': [0, 60], 'y': [None, None], 'label': ''})
-
-
 
 # Update the current value in session state
 st.session_state.current_value = time_slider
 
-# Here you can create your plots using the current_value
-# For example (replace this with your actual plotting code):
+# Create the plots
 with plot_container.container():
     # Create the line chart using Plotly Express
     fig = px.line(df, x='x', y='y', color='label')
 
-    # add a title
+    # Add title and axis labels
     fig.update_layout(
         xaxis_title='V',
         yaxis_title='n(V)'
@@ -257,34 +294,35 @@ with plot_container.container():
         # Calculate histogram data
         hist_values, bin_edges = np.histogram(data_MC, bins=100, density=True)
 
-        # Add the histogram trace to the figure
+        # Add the histogram trace
         fig.add_trace(
             go.Line(
-                x=bin_edges[:-1],  # Use left edges of bins as x values
-                y=hist_values * no_now / no_begin,  # Normalize to the number of samples at t=0
+                x=bin_edges[:-1],
+                y=hist_values * no_now / no_begin,
                 name='Monte Carlo',
                 opacity=0.5,
             )
         )
 
     if 'MOM' in method:
-        # Calculate the maximum y value across all traces, excluding None values
-        max_y = 0  # Default value
+        # Calculate max y value for scaling
+        max_y = 0
         for trace in fig.data:
             if trace.y is not None and any(y is not None for y in trace.y):
                 trace_max = max(y for y in trace.y if y is not None)
                 max_y = max(max_y, trace_max)
 
-        # If max_y is still 0 (no valid y values), set a default height
         if max_y == 0:
             max_y = 1.0
 
         line_height = 0.05 * max_y
 
-        # Load MOM data
+        # Load and plot MOM data
         mom_data = loader.get_data(case, level2, 'MOM')
         x_position = mom_data[str(time_slider)][0]
         std = mom_data[str(time_slider)][1]
+
+        # Add vertical line
         fig.add_shape(
             type="line",
             x0=x_position,
@@ -298,19 +336,19 @@ with plot_container.container():
             )
         )
 
-        # Add a trace for the vertical marker legend entry
+        # Add legend entry
         fig.add_trace(
             go.Scatter(
-                x=[x_position - std, x_position + std],  # Two points to create a visible line
-                y=[line_height / 2, line_height / 2],  # Same height for a horizontal line
+                x=[x_position - std, x_position + std],
+                y=[line_height / 2, line_height / 2],
                 mode='lines',
-                name='Method of moments',  # Legend label for the vertical shape
+                name='Method of moments',
                 line=dict(color='black', width=2),
                 showlegend=True
             )
         )
 
-    # Update the layout to accommodate both plots
+    # Update layout
     fig.update_layout(
         yaxis2=dict(
             title='Count',
@@ -318,19 +356,17 @@ with plot_container.container():
             side='right'
         ),
         barmode='overlay',
-        xaxis_title='V',  # Example with LaTeX
-        yaxis_title='n(V)'  # Example with LaTeX and units
+        xaxis_title='V',
+        yaxis_title='n(V)'
     )
 
     st.plotly_chart(fig)
 
-# If counter is active, increment the slider value
+# Handle counter increment
 if st.session_state.counter_active:
-    # Update current value
     st.session_state.current_value = min(
         50,  # max_value
         int(st.session_state.current_value + increment)
     )
-    # Force a rerun after a short delay
     time.sleep(0.5)
     st.rerun()
