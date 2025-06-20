@@ -271,7 +271,7 @@ with tab1:
         st.markdown("""
         This tab compares numerical solution methods for the population balance equation (PBE), which describes how crystal size distributions evolve over time:
         
-        $$\frac{\partial n(L,t)}{\partial t} + \frac{\partial}{\partial L}[G(L,t)n(L,t)] = B(L,t) - D(L,t) + N(L,t)$$
+        ∂n(L,t)/∂t + ∂[G(L,t)n(L,t)]/∂L = B(L,t) - D(L,t) + N(L,t)
         
         **Solution Methods:**
         - **MOM**: Method of moments
@@ -306,18 +306,11 @@ with tab1:
 
             The PBE describes how crystal size distribution evolves over time through:
 
-            **Growth (G):** Crystals increase in size at a rate proportional to supersaturation
-            - G = 0.5: Slow growth conditions
-            - G = 1.0: Moderate growth rate  
-            - G = 5.0: Fast growth conditions
+            **Growth (G):** Growth rate. Crystals increase in size at this rate. Coupled with the reactor model this can be a function of the states of the continuous phase, e.g. concentration.
 
-            **Nucleation (N):** Formation of new crystals from solution
-            - Primary nucleation occurs spontaneously
-            - Secondary nucleation is induced by existing crystals
+            **Nucleation (N):** Nucleation rate. Formation of new crystals from solution.
 
-            **Agglomeration (β):** Crystals stick together forming larger particles
-            - β = 0.1: Low agglomeration tendency
-            - β = 0.5: High agglomeration rate
+            **Agglomeration (β):** Agglomeration rate. Crystals "stick" together and form new bonds between them forming larger particles.
             """)
 
 
