@@ -6,6 +6,8 @@ import plotly.graph_objects as go
 import time
 import pickle
 # import scienceplots
+import matplotlib as mpl
+mpl.rcParams.update(mpl.rcParamsDefault
 
 from matplotlib import pyplot as plt
 from matplotlib.patches import Circle
