@@ -1214,17 +1214,12 @@ with tab3:
                     min_value=10, max_value=200, value=80, step=10,
                     key="tubular_stages_no2"
                 )
-                diffusion = st.slider(
-                    'Diffusion coefficient',
-                    min_value=0.001, max_value=1.0, value=0.001, step=0.001,
-                    key="tubular_diffusion2"
-                )
 
         # Time selection (USING TAB3 CURRENT TIME)
         time_point = st.slider(
             'Time Point',
             min_value=0,
-            max_value=400,
+            max_value=199,
             value=st.session_state.tab3_current_time,  # Changed to tab3_current_time
             step=1,
             key="tab3_left_time"  # Changed key
