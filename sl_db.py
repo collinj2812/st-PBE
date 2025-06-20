@@ -688,6 +688,11 @@ with tab1:
 with tab2:
     st.header("Solution for continuous phase of crystallizers")
 
+    with st.expander("Details", expanded=False):
+        st.markdown("""
+        This tab analyzes the continuous phase behavior of different crystallizer configurations, focusing on temperature and concentration evolution without detailed population dynamics.
+        """)
+      
     # Create two columns
     left_col, right_col = st.columns([1, 3])
 
@@ -756,6 +761,14 @@ with tab2:
 
     # Right column - Plot
     with right_col:
+        with st.expander("📖 Explanations", expanded=False):
+            st.markdown("""
+            **Crystallizer Types:**
+            - **MSMPR**: Mixed suspension mixed product removal crystallizer. Equivalent to a CSTR in reaction engineering.
+            - **MSMPR Cascade**: Series of 2-6 connected MSMPRs.
+            - **Tubular**: Plug flow with spatial variations.
+            """)
+      
         if case_select == 'MSMPR':
             # load MSMPR pickle data
             with open(f'data/contdata/data_MSMPR_1_stages.pkl', 'rb') as f:
@@ -1194,6 +1207,11 @@ with tab3:
 
     st.header("Solution for continuous phase of crystallizers")
 
+    with st.expander("Details", expanded=False):
+        st.markdown("""
+        This tab shows the fully coupled model combining the population balance with crystallizer dynamics. It demonstrates how crystal size distributions evolve in response to changing process conditions.
+        """)
+      
     # Create two columns
     left_col, right_col = st.columns([1, 3])
 
@@ -1257,6 +1275,14 @@ with tab3:
 
     # Right column - Plot
     with right_col:
+      
+        with st.expander("📖 Explanations", expanded=False):
+            st.markdown("""
+            **Crystallizer Types:**
+            - **MSMPR**: Mixed suspension mixed product removal crystallizer. Equivalent to a CSTR in reaction engineering.
+            - **MSMPR Cascade**: Series of 2-6 connected MSMPRs.
+            - **Tubular**: Plug flow with spatial variations.
+            """)
         if case_select == 'MSMPR':
             # load MSMPR pickle data
             with open(f'data/fulldata/data_MSMPR_1_stages_DPBE.pkl', 'rb') as f:
