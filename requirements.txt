@@ -2,3 +2,5 @@ streamlit
 matplotlib
 plotly
 scienceplots
+pickle
+pandas
