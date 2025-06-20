@@ -1249,7 +1249,7 @@ with tab3:
             elif case_select == 'Tubular':
                 parameter = st.slider(
                     'Number of finite volumes',
-                    min_value=10, max_value=200, value=80, step=10,
+                    min_value=10, max_value=50, value=30, step=10,
                     key="tubular_stages_no2"
                 )
 
