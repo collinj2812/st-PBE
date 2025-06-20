@@ -745,10 +745,10 @@ with tab2:
                 st.image("figures/MSMPR.jpg", caption="MSMPR sketch", width=300)
             with subcol2:
                 st.write("Model inputs:")
-                st.metric(label='$T_{j,\\text{in}}$', value=data['T_j_in'][time_point])
-                st.metric(label='$F_{j,\\text{in}}$', value=data['F_j_in'][time_point])
-                st.metric(label='$F_{\\text{feed}}$', value=data['F_feed'][time_point])
-                st.metric(label='$T_{\\text{feed}}$', value=data['T_feed'][time_point])
+                st.metric(label='T_{j,in', value=data['T_j_in'][time_point])
+                st.metric(label='F_{j,in', value=data['F_j_in'][time_point])
+                st.metric(label='F_feed', value=data['F_feed'][time_point])
+                st.metric(label='T_feed', value=data['T_feed'][time_point])
             with subcol3:
                 st.write("Model states:")
 
@@ -766,11 +766,11 @@ with tab2:
 
                 ax[1].scatter([1], data['T_PM'][time_point])
                 ax[1].set_ylim([data['T_PM'].min() * min_mult, data['T_PM'].max() * max_mult])
-                ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                ax[1].set_ylabel('T_PM [K]')
 
                 ax[2].scatter([1], data['T_TM'][time_point])
                 ax[2].set_ylim([data['T_TM'].min() * min_mult, data['T_TM'].max() * max_mult])
-                ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                ax[2].set_ylabel('T_TM [K]')
 
                 ax[0].spines['top'].set_visible(False)
                 ax[0].spines['right'].set_visible(False)
@@ -831,10 +831,10 @@ with tab2:
             subcol1, subcol2 = st.columns([1, 4])
             with subcol1:
                 st.write("Model inputs:")
-                st.metric(label='$T_{j,\\text{in}}$', value=data['T_j_in'][time_point][0])
-                st.metric(label='$F_{j,\\text{in}}$', value=data['F_j_in'][time_point][0])
-                st.metric(label='$F_{\\text{feed}}$', value=data['F_feed'][time_point])
-                st.metric(label='$T_{\\text{feed}}$', value=data['T_feed'][time_point])
+                st.metric(label='T_{j,in', value=data['T_j_in'][time_point][0])
+                st.metric(label='F_{j,in', value=data['F_j_in'][time_point][0])
+                st.metric(label='F_feed', value=data['F_feed'][time_point])
+                st.metric(label='T_feed', value=data['T_feed'][time_point])
 
             with subcol2:
                 if parameter == 2:
@@ -861,12 +861,12 @@ with tab2:
                     ax[1].scatter([pos_1], data['T_PM'][time_point][0])
                     ax[1].scatter([pos_2], data['T_PM'][time_point][1])
                     ax[1].set_ylim([data['T_PM'].min() * min_mult, data['T_PM'].max() * max_mult])
-                    ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                    ax[1].set_ylabel('T_PM [K]')
 
                     ax[2].scatter([pos_1], data['T_TM'][time_point][0])
                     ax[2].scatter([pos_2], data['T_TM'][time_point][1])
                     ax[2].set_ylim([data['T_TM'].min() * min_mult, data['T_TM'].max() * max_mult])
-                    ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                    ax[2].set_ylabel('T_TM [K]')
 
                     # set all spines but far left to invisible
                     for i in range(3):
@@ -904,12 +904,12 @@ with tab2:
                     ax[1].scatter([pos_2], data['T_PM'][time_point][1])
                     ax[1].scatter([pos_3], data['T_PM'][time_point][2])
                     ax[1].set_ylim([data['T_PM'].min() * min_mult, data['T_PM'].max() * max_mult])
-                    ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                    ax[1].set_ylabel('T_PM [K]')
                     ax[2].scatter([pos_1], data['T_TM'][time_point][0])
                     ax[2].scatter([pos_2], data['T_TM'][time_point][1])
                     ax[2].scatter([pos_3], data['T_TM'][time_point][2])
                     ax[2].set_ylim([data['T_TM'].min() * min_mult, data['T_TM'].max() * max_mult])
-                    ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                    ax[2].set_ylabel('T_TM [K]')
                     # set all spines but far left to invisible
                     for i in range(3):
                         ax[i].spines['top'].set_visible(False)
@@ -947,13 +947,13 @@ with tab2:
                     ax[1].scatter([pos_3], data['T_PM'][time_point][2])
                     ax[1].scatter([pos_4], data['T_PM'][time_point][3])
                     ax[1].set_ylim([data['T_PM'].min() * min_mult, data['T_PM'].max() * max_mult])
-                    ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                    ax[1].set_ylabel('T_PM [K]')
                     ax[2].scatter([pos_1], data['T_TM'][time_point][0])
                     ax[2].scatter([pos_2], data['T_TM'][time_point][1])
                     ax[2].scatter([pos_3], data['T_TM'][time_point][2])
                     ax[2].scatter([pos_4], data['T_TM'][time_point][3])
                     ax[2].set_ylim([data['T_TM'].min() * min_mult, data['T_TM'].max() * max_mult])
-                    ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                    ax[2].set_ylabel('T_TM [K]')
                     # set all spines but far left to invisible
                     for i in range(3):
                         ax[i].spines['top'].set_visible(False)
@@ -994,14 +994,14 @@ with tab2:
                     ax[1].scatter([pos_4], data['T_PM'][time_point][3])
                     ax[1].scatter([pos_5], data['T_PM'][time_point][4])
                     ax[1].set_ylim([data['T_PM'].min() * min_mult, data['T_PM'].max() * max_mult])
-                    ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                    ax[1].set_ylabel('T_PM [K]')
                     ax[2].scatter([pos_1], data['T_TM'][time_point][0])
                     ax[2].scatter([pos_2], data['T_TM'][time_point][1])
                     ax[2].scatter([pos_3], data['T_TM'][time_point][2])
                     ax[2].scatter([pos_4], data['T_TM'][time_point][3])
                     ax[2].scatter([pos_5], data['T_TM'][time_point][4])
                     ax[2].set_ylim([data['T_TM'].min() * min_mult, data['T_TM'].max() * max_mult])
-                    ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                    ax[2].set_ylabel('T_TM [K]')
                     # set all spines but far left to invisible
                     for i in range(3):
                         ax[i].spines['top'].set_visible(False)
@@ -1045,7 +1045,7 @@ with tab2:
                     ax[1].scatter([pos_5], data['T_PM'][time_point][4])
                     ax[1].scatter([pos_6], data['T_PM'][time_point][5])
                     ax[1].set_ylim([data['T_PM'].min() * min_mult, data['T_PM'].max() * max_mult])
-                    ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                    ax[1].set_ylabel('T_PM [K]')
                     ax[2].scatter([pos_1], data['T_TM'][time_point][0])
                     ax[2].scatter([pos_2], data['T_TM'][time_point][1])
                     ax[2].scatter([pos_3], data['T_TM'][time_point][2])
@@ -1053,7 +1053,7 @@ with tab2:
                     ax[2].scatter([pos_5], data['T_TM'][time_point][4])
                     ax[2].scatter([pos_6], data['T_TM'][time_point][5])
                     ax[2].set_ylim([data['T_TM'].min() * min_mult, data['T_TM'].max() * max_mult])
-                    ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                    ax[2].set_ylabel('T_TM [K]')
                     # set all spines but far left to invisible
                     for i in range(3):
                         ax[i].spines['top'].set_visible(False)
@@ -1082,10 +1082,10 @@ with tab2:
             subcol1, subcol2 = st.columns([1, 4])
             with subcol1:
                 st.write("Model inputs:")
-                st.metric(label='$T_{j,\\text{in}}$', value=data['T_j_in'][time_point])
-                st.metric(label='$F_{j,\\text{in}}$', value=data['F_j'][time_point])
-                st.metric(label='$F_{\\text{feed}}$', value=data['F'][time_point])
-                st.metric(label='$T_{\\text{feed}}$', value=data['T_in'][time_point])
+                st.metric(label='T_j,in', value=data['T_j_in'][time_point])
+                st.metric(label='F_j,in', value=data['F_j'][time_point])
+                st.metric(label='F_feed', value=data['F'][time_point])
+                st.metric(label='T_feed', value=data['T_in'][time_point])
             with subcol2:
                 fig, ax = plt.subplots(3, 1, figsize=[6, 6], sharex='col')
 
@@ -1094,10 +1094,10 @@ with tab2:
                 ax[0].set_ylabel('c [g/g]')
                 ax[0].set_ylim([data['c'].min() * 0.98, data['c'].max() * 1.02])
                 ax[1].plot(data['L'], data['T_PM'][time_point])
-                ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                ax[1].set_ylabel('T_PM [K]')
                 ax[1].set_ylim([data['T_PM'].min() * 0.98, data['T_PM'].max() * 1.02])
                 ax[2].plot(data['L'], data['T_TM'][time_point])
-                ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                ax[2].set_ylabel('T_TM [K]')
                 ax[2].set_ylim([data['T_TM'].min() * 0.98, data['T_TM'].max() * 1.02])
                 ax[2].set_xlabel('Length [m]')
 
@@ -1121,9 +1121,9 @@ with tab2:
                 ax[0].plot(data['c'])
                 ax[0].set_ylabel('c [g/g]')
                 ax[1].plot(data['T_PM'])
-                ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                ax[1].set_ylabel('T_PM [K]')
                 ax[2].plot(data['T_TM'])
-                ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                ax[2].set_ylabel('T_TM [K]')
                 # display current values as x
                 ax[0].scatter(time_point, data['c'][time_point], color=colors[0], label='Time point', s=50)
                 ax[1].scatter(time_point, data['T_PM'][time_point], color=colors[0], label='Time point', s=50)
@@ -1133,9 +1133,9 @@ with tab2:
                 ax[0].plot(data['c'])
                 ax[0].set_ylabel('c [g/g]')
                 ax[1].plot(data['T_PM'])
-                ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                ax[1].set_ylabel('T_PM [K]')
                 ax[2].plot(data['T_TM'])
-                ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                ax[2].set_ylabel('T_TM [K]')
                 # display current values as x
                 for i in range(parameter):
                     ax[0].scatter(time_point, data['c'][time_point][i], color=colors[i], label='Time point', s=20)
@@ -1251,10 +1251,10 @@ with tab3:
                 st.image("figures/MSMPR.jpg", caption="MSMPR sketch", width=300)
             with subcol2:
                 st.write("Model inputs:")
-                st.metric(label='$T_{j,\\text{in}}$', value=data['T_j_in'][time_point])
-                st.metric(label='$F_{j,\\text{in}}$', value=data['F_j_in'][time_point])
-                st.metric(label='$F_{\\text{feed}}$', value=data['F_feed'][time_point])
-                st.metric(label='$T_{\\text{feed}}$', value=data['T_feed'][time_point])
+                st.metric(label='T_j,in', value=data['T_j_in'][time_point])
+                st.metric(label='F_j,in', value=data['F_j_in'][time_point])
+                st.metric(label='F_feed', value=data['F_feed'][time_point])
+                st.metric(label='T_feed', value=data['T_feed'][time_point])
             with subcol3:
                 st.write("Model states:")
 
@@ -1272,17 +1272,17 @@ with tab3:
 
                 ax[1].scatter([1], data['T_PM'][time_point])
                 ax[1].set_ylim([data['T_PM'].min() * min_mult, data['T_PM'].max() * max_mult])
-                ax[1].set_ylabel('$T_{\\text{PM}}$ [K]')
+                ax[1].set_ylabel('T_PM [K]')
 
                 ax[2].scatter([1], data['T_TM'][time_point])
                 ax[2].set_ylim([data['T_TM'].min() * min_mult, data['T_TM'].max() * max_mult])
-                ax[2].set_ylabel('$T_{\\text{TM}}$ [K]')
+                ax[2].set_ylabel('T_TM [K]')
 
                 # ax[3].plot(data['L_i'], data['n'][time_point,:])
                 ax[3].plot(-1*data['n'][time_point,:] * data['L_i'], data['L_i'])
                 ax[3].set_xlim([-1.1*(data['n'][time_point,:] * data['L_i']).max(), 1.1*(data['n'][time_point,:] * data['L_i']).max()])
                 ax[3].set_ylim([0, 0.005])
-                ax[3].set_ylabel('$n_{L}$ [-]')
+                ax[3].set_ylabel('n_L [-]')
 
                 ax[0].spines['top'].set_visible(False)
                 ax[0].spines['right'].set_visible(False)
@@ -1347,10 +1347,10 @@ with tab3:
             subcol1, subcol2 = st.columns([1, 5])
             with subcol1:
                 st.write("Model inputs:")
-                st.metric(label='$T_{j,\\text{in}}$', value=data['T_j_in'][time_point][0])
-                st.metric(label='$F_{j,\\text{in}}$', value=data['F_j_in'][time_point][0])
-                st.metric(label='$F_{\\text{feed}}$', value=data['F_feed'][time_point])
-                st.metric(label='$T_{\\text{feed}}$', value=data['T_feed'][time_point])
+                st.metric(label='T_j,in', value=data['T_j_in'][time_point][0])
+                st.metric(label='F_j,in', value=data['F_j_in'][time_point][0])
+                st.metric(label='F_feed', value=data['F_feed'][time_point])
+                st.metric(label='T_feed', value=data['T_feed'][time_point])
 
             with subcol2:
                 if parameter == 2:
@@ -1382,10 +1382,10 @@ with tab3:
                     ax[1].plot(data['L_i'], data['n'][time_point,n_classes:n_classes*2])
                     ax[2].plot(data['L_i'], data['n'][time_point,n_classes*2:])
                     ax[0].set_xlim([0, 0.01])
-                    ax[0].set_ylabel('$n_{L}$ [-]')
-                    ax[0].set_xlabel('$L$ [m]')
-                    ax[1].set_xlabel('$L$ [m]')
-                    ax[2].set_xlabel('$L$ [m]')
+                    ax[0].set_ylabel('n_L [-]')
+                    ax[0].set_xlabel('L [m]')
+                    ax[1].set_xlabel('L [m]')
+                    ax[2].set_xlabel('L [m]')
 
                     for i in range(3):
                         ax[i].spines['top'].set_visible(False)
@@ -1405,11 +1405,11 @@ with tab3:
                     ax[2].plot(data['L_i'], data['n'][time_point,n_classes*2:n_classes*3])
                     ax[3].plot(data['L_i'], data['n'][time_point,n_classes*3:])
                     ax[0].set_xlim([0, 0.01])
-                    ax[0].set_ylabel('$n_{L}$ [-]')
-                    ax[0].set_xlabel('$L$ [m]')
-                    ax[1].set_xlabel('$L$ [m]')
-                    ax[2].set_xlabel('$L$ [m]')
-                    ax[3].set_xlabel('$L$ [m]')
+                    ax[0].set_ylabel('n_L [-]')
+                    ax[0].set_xlabel('L [m]')
+                    ax[1].set_xlabel('L [m]')
+                    ax[2].set_xlabel('L [m]')
+                    ax[3].set_xlabel('L [m]')
 
                     for i in range(4):
                         ax[i].spines['top'].set_visible(False)
@@ -1430,12 +1430,12 @@ with tab3:
                     ax[3].plot(data['L_i'], data['n'][time_point,n_classes*3:n_classes*4])
                     ax[4].plot(data['L_i'], data['n'][time_point,n_classes*4:])
                     ax[0].set_xlim([0, 0.01])
-                    ax[0].set_ylabel('$n_{L}$ [-]')
-                    ax[0].set_xlabel('$L$ [m]')
-                    ax[1].set_xlabel('$L$ [m]')
-                    ax[2].set_xlabel('$L$ [m]')
-                    ax[3].set_xlabel('$L$ [m]')
-                    ax[4].set_xlabel('$L$ [m]')
+                    ax[0].set_ylabel('n_L [-]')
+                    ax[0].set_xlabel('L [m]')
+                    ax[1].set_xlabel('L [m]')
+                    ax[2].set_xlabel('L [m]')
+                    ax[3].set_xlabel('L [m]')
+                    ax[4].set_xlabel('L [m]')
 
                     for i in range(5):
                         ax[i].spines['top'].set_visible(False)
@@ -1457,13 +1457,13 @@ with tab3:
                     ax[4].plot(data['L_i'], data['n'][time_point,n_classes*4:n_classes*5])
                     ax[5].plot(data['L_i'], data['n'][time_point,n_classes*5:])
                     ax[0].set_xlim([0, 0.01])
-                    ax[0].set_ylabel('$n_{L}$ [-]')
-                    ax[0].set_xlabel('$L$ [m]')
-                    ax[1].set_xlabel('$L$ [m]')
-                    ax[2].set_xlabel('$L$ [m]')
-                    ax[3].set_xlabel('$L$ [m]')
-                    ax[4].set_xlabel('$L$ [m]')
-                    ax[5].set_xlabel('$L$ [m]')
+                    ax[0].set_ylabel('n_L [-]')
+                    ax[0].set_xlabel('L [m]')
+                    ax[1].set_xlabel('L [m]')
+                    ax[2].set_xlabel('L [m]')
+                    ax[3].set_xlabel('L [m]')
+                    ax[4].set_xlabel('L [m]')
+                    ax[5].set_xlabel('L [m]')
 
                     for i in range(6):
                         ax[i].spines['top'].set_visible(False)
@@ -1490,10 +1490,10 @@ with tab3:
             subcol1, subcol2 = st.columns([1, 4])
             with subcol1:
                 st.write("Model inputs:")
-                st.metric(label='$T_{j,\\text{in}}$', value=data['T_j_in'][time_point])
-                st.metric(label='$F_{j,\\text{in}}$', value=data['F_j'][time_point])
-                st.metric(label='$F_{\\text{feed}}$', value=data['F'][time_point])
-                st.metric(label='$T_{\\text{feed}}$', value=data['T_in'][time_point])
+                st.metric(label='T_jin', value=data['T_j_in'][time_point])
+                st.metric(label='F_j,in', value=data['F_j'][time_point])
+                st.metric(label='F_feed', value=data['F'][time_point])
+                st.metric(label='T_feed', value=data['T_in'][time_point])
             with subcol2:
                 # fig, ax = plt.subplots(3, 1, figsize=[6, 6], sharex='col')
                 #
@@ -1533,7 +1533,7 @@ with tab3:
                     fill=True,
                     overlap=2,  # Adjust for better spacing
                     colormap='viridis',
-                    ylabel="L_i [$\mu m$]",  # This will be the y-axis label (domain of your distributions)
+                    ylabel="L_i [mu m]",  # This will be the y-axis label (domain of your distributions)
                     xlabel='Length [m]',
                     grid=True,
                     labels=custom_labels
@@ -1558,9 +1558,9 @@ with tab3:
                 ax[0].plot(data['c'])
                 ax[0].set_ylabel('c [g/g]')
                 ax[1].plot(data['T_PM'])
-                ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                ax[1].set_ylabel('T_PM [K]')
                 ax[2].plot(data['T_TM'])
-                ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                ax[2].set_ylabel('T_TM [K]')
                 # display current values as x
                 ax[0].scatter(time_point, data['c'][time_point], color=colors[0], label='Time point', s=50)
                 ax[1].scatter(time_point, data['T_PM'][time_point], color=colors[0], label='Time point', s=50)
@@ -1570,9 +1570,9 @@ with tab3:
                 ax[0].plot(data['c'])
                 ax[0].set_ylabel('c [g/g]')
                 ax[1].plot(data['T_PM'])
-                ax[1].set_ylabel('$T_{\\text{PM}} [K]$')
+                ax[1].set_ylabel('T_PM [K]')
                 ax[2].plot(data['T_TM'])
-                ax[2].set_ylabel('$T_{\\text{TM}} [K]$')
+                ax[2].set_ylabel('T_TM [K]')
                 # display current values as x
                 for i in range(parameter):
                     ax[0].scatter(time_point, data['c'][time_point][i], color=colors[i], label='Time point', s=20)
