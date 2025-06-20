@@ -271,7 +271,7 @@ with tab1:
         st.markdown("""
         This tab compares numerical solution methods for the population balance equation (PBE), which describes how crystal size distributions evolve over time:
         
-        $\frac{\partial n(L,t)}{\partial t} + \frac{\partial}{\partial L}[G(L,t)n(L,t)] = B(L,t) - D(L,t) + N(L,t)$
+        $$\frac{\partial n(L,t)}{\partial t} + \frac{\partial}{\partial L}[G(L,t)n(L,t)] = B(L,t) - D(L,t) + N(L,t)$$
         
         **Solution Methods:**
         - **MOM**: Method of moments
