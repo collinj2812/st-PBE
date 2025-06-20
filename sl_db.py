@@ -5,14 +5,14 @@ import plotly.express as px
 import plotly.graph_objects as go
 import time
 import pickle
-import scienceplots
+# import scienceplots
 
 from matplotlib import pyplot as plt
 from matplotlib.patches import Circle
 import matplotlib.image as mpimg
 import random
 
-plt.style.use('science')
+# plt.style.use('science')
 
 
 def horizontal_ridgeline_plot(data, x_range=None, labels=None, figsize=(10, 6), colors=None,
