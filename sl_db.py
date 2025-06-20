@@ -251,12 +251,40 @@ st.markdown("""
 # Create a title
 st.title("MPC for continuous crystallization")
 
+st.markdown("""
+This Streamlit app accompanies the paper A tutorial overview of model predictive control for continuous crystallization: current possibilities and future perspectives (2025, Collin R. Johnson, Kerstin Wohlgemuth and Sergio Lucia). It provides interactive visualizations of population balance equations and crystallizer modeling across three main areas:
+
+- **Tab 1**: Population balance equation solution methods
+- **Tab 2**: Continuous crystallizer reactor models
+- **Tab 3**: Combined models
+""")
+
 # Create tabs for different functionality views
 tab1, tab2, tab3 = st.tabs(["Population balance equation", "Crystallizer model", "Overall model"])
 
 # Tab 1: Your original functionality (split into columns)
 with tab1:
     st.header("Solution methods for the population balance equation")
+
+
+    st.markdown("""
+    This tab compares numerical solution methods for the population balance equation (PBE), which describes how crystal size distributions evolve over time:
+    
+    ```
+    ∂n(L,t)/∂t + ∂[G(L,t)n(L,t)]/∂L = B(L,t) + A(L,t)
+    ```
+    
+    **Solution Methods:**
+    - **OCFE**: Orthogonal collocation on finite elements
+    - **DPBE**: Direct discretization with various schemes  
+    - **MOM**: Method of moments (statistical approach)
+    - **MC**: Monte Carlo simulation
+    
+    **Test Cases:**
+    - Case 1: Pure growth (G > 0)
+    - Case 2: Pure agglomeration (β > 0) 
+    - Case 3: Growth + agglomeration + nucleation
+    """)
 
     # Create two columns for side-by-side view
     left_col, right_col = st.columns([1,3])
