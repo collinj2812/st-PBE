@@ -267,24 +267,25 @@ with tab1:
     st.header("Solution methods for the population balance equation")
 
 
-    st.markdown("""
-    This tab compares numerical solution methods for the population balance equation (PBE), which describes how crystal size distributions evolve over time:
-    
-    ```
-    ∂n(L,t)/∂t + ∂[G(L,t)n(L,t)]/∂L = B(L,t) + A(L,t)
-    ```
-    
-    **Solution Methods:**
-    - **OCFE**: Orthogonal collocation on finite elements
-    - **DPBE**: Direct discretization with various schemes  
-    - **MOM**: Method of moments (statistical approach)
-    - **MC**: Monte Carlo simulation
-    
-    **Test Cases:**
-    - Case 1: Pure growth (G > 0)
-    - Case 2: Pure agglomeration (β > 0) 
-    - Case 3: Growth + agglomeration + nucleation
-    """)
+    with st.expander("Details", expanded=False):
+        st.markdown("""
+        This tab compares numerical solution methods for the population balance equation (PBE), which describes how crystal size distributions evolve over time:
+        
+        ```
+        ∂n(L,t)/∂t + ∂[G(L,t)n(L,t)]/∂L = B(L,t) + A(L,t)
+        ```
+        
+        **Solution Methods:**
+        - **OCFE**: Orthogonal collocation on finite elements
+        - **DPBE**: Direct discretization with various schemes  
+        - **MOM**: Method of moments (statistical approach)
+        - **MC**: Monte Carlo simulation
+        
+        **Test Cases:**
+        - Case 1: Pure growth (G > 0)
+        - Case 2: Pure agglomeration (β > 0) 
+        - Case 3: Growth + agglomeration + nucleation
+        """)
 
     # Create two columns for side-by-side view
     left_col, right_col = st.columns([1,3])
