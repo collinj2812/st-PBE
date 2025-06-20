@@ -271,14 +271,12 @@ with tab1:
         st.markdown("""
         This tab compares numerical solution methods for the population balance equation (PBE), which describes how crystal size distributions evolve over time:
         
-        ```
-        ∂n(L,t)/∂t + ∂[G(L,t)n(L,t)]/∂L = B(L,t) + A(L,t)
-        ```
+        $\frac{\partial n(L,t)}{\partial t} + \frac{\partial}{\partial L}[G(L,t)n(L,t)] = B(L,t) - D(L,t) + N(L,t)$
         
         **Solution Methods:**
+        - **MOM**: Method of moments
+        - **DPBE**: Discretized population balance equation 
         - **OCFE**: Orthogonal collocation on finite elements
-        - **DPBE**: Direct discretization with various schemes  
-        - **MOM**: Method of moments (statistical approach)
         - **MC**: Monte Carlo simulation
         
         **Test Cases:**
