@@ -786,7 +786,7 @@ with tab2:
                 ax[1].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                 ax[2].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                 fig.align_ylabels()
-                fig.tight_layout()
+                # fig.tight_layout()
                 st.pyplot(fig)
 
         if case_select == 'MSMPR Cascade':
@@ -879,7 +879,7 @@ with tab2:
                         ax[i].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
 
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
 
                 elif parameter == 3:
@@ -920,7 +920,7 @@ with tab2:
                         ax[i].spines['bottom'].set_visible(False)
                         ax[i].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
                 elif parameter == 4:
                     st.write("Model states:")
@@ -964,7 +964,7 @@ with tab2:
                         ax[i].spines['bottom'].set_visible(False)
                         ax[i].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
                 elif parameter == 5:
                     st.write("Model states:")
@@ -1012,7 +1012,7 @@ with tab2:
                         ax[i].spines['bottom'].set_visible(False)
                         ax[i].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
                 elif parameter == 6:
                     st.write("Model states:")
@@ -1064,7 +1064,7 @@ with tab2:
                         ax[i].spines['bottom'].set_visible(False)
                         ax[i].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
         elif case_select == 'Tubular':
             # load tubular data
@@ -1102,7 +1102,7 @@ with tab2:
                 ax[2].set_xlabel('Length [m]')
 
                 fig.align_ylabels()
-                fig.tight_layout()
+                # fig.tight_layout()
 
 
                 st.pyplot(fig)
@@ -1144,7 +1144,7 @@ with tab2:
 
             ax[2].set_xlabel('Time [s]')
 
-            fig.tight_layout()
+            # fig.tight_layout()
             fig.align_ylabels()
 
             st.pyplot(fig)
@@ -1302,7 +1302,7 @@ with tab3:
                 ax[2].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                 ax[3].tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
                 fig.align_ylabels()
-                fig.tight_layout()
+                # fig.tight_layout()
                 st.pyplot(fig)
 
         if case_select == 'MSMPR Cascade':
@@ -1371,7 +1371,7 @@ with tab3:
                         ax[i].spines['right'].set_visible(False)
 
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
 
                 elif parameter == 3:
@@ -1394,7 +1394,7 @@ with tab3:
                         ax[i].spines['right'].set_visible(False)
 
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
                 elif parameter == 4:
                     fig, ax = plt.subplots(1, 4, figsize=(6, 4), sharey='row')
@@ -1418,7 +1418,7 @@ with tab3:
                         ax[i].spines['right'].set_visible(False)
 
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
                 elif parameter == 5:
                     fig, ax = plt.subplots(1, 5, figsize=(6, 4), sharey='row')
@@ -1444,7 +1444,7 @@ with tab3:
                         ax[i].spines['right'].set_visible(False)
 
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
                 elif parameter == 6:
                     fig, ax = plt.subplots(1, 6, figsize=(6, 4), sharey='row')
@@ -1472,7 +1472,7 @@ with tab3:
                         ax[i].spines['right'].set_visible(False)
 
                     fig.align_ylabels()
-                    fig.tight_layout()
+                    # fig.tight_layout()
                     st.pyplot(fig)
         elif case_select == 'Tubular':
             # load tubular data
@@ -1510,7 +1510,7 @@ with tab3:
                 # ax[2].set_xlabel('Length [m]')
                 #
                 # fig.align_ylabels()
-                # fig.tight_layout()
+                # # fig.tight_layout()
                 until = 155
 
                 # convert to data['n'][time_point].reshape((-1,200))[:,:until] to dict
@@ -1581,7 +1581,7 @@ with tab3:
 
             ax[2].set_xlabel('Time [s]')
 
-            fig.tight_layout()
+            # fig.tight_layout()
             fig.align_ylabels()
 
             st.pyplot(fig)
