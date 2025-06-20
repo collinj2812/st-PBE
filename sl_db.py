@@ -424,7 +424,7 @@ with tab1:
     if 'OCFE' in method:
         with left_col.expander("OCFE Parameters", expanded=False):
             level3_OCFE_select = st.selectbox(
-                'Artificial diffusion $D_a$',
+                'Artificial diffusion D_a',
                 options=['0.00001', '0.0001', '0.001', '0.01', '0.1', '1.0']
             )
             if level3_OCFE_select == '0.00001':
@@ -1360,9 +1360,9 @@ with tab3:
                     ax[0].plot(data['L_i'], data['n'][time_point,:n_classes])
                     ax[1].plot(data['L_i'], data['n'][time_point,n_classes:])
                     ax[0].set_xlim([0, 0.01])
-                    ax[0].set_ylabel('$n_{L}$ [-]')
-                    ax[0].set_xlabel('$L$ [m]')
-                    ax[1].set_xlabel('$L$ [m]')
+                    ax[0].set_ylabel('n_L [-]')
+                    ax[0].set_xlabel('L [m]')
+                    ax[1].set_xlabel('L [m]')
 
                     for i in range(2):
                         ax[i].spines['top'].set_visible(False)
