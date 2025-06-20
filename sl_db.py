@@ -312,16 +312,16 @@ with tab1:
 
             **Agglomeration (β):** Agglomeration rate. Crystals "stick" together and form new bonds between them forming larger particles.
             
-            # OCFE (Orthogonal Collocation on Finite Elements):
+            **OCFE (Orthogonal Collocation on Finite Elements):**
             **Artificial diffusion D_a:** Numerical stabilization coefficient added to prevent oscillations
             **Number of finite elements**: How many segments the size domain is divided into
             **Number of collocation points**: Polynomial degree used within each finite element
             
-            # DPBE (Discretized Population Balance Equation):
+            **DPBE (Discretized Population Balance Equation):**
             **Scheme:** Numerical discretization method (First order, Flux limited upwind, or WENO5)
             **Number of classes:** Number of discrete size bins in the discretization
             
-            # MC (Monte Carlo):
+            **MC (Monte Carlo):**
             **Number of samples:** Total number of computational particles simulated
             """)
 
